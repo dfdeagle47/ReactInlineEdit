@@ -77,7 +77,8 @@ class InlineEdit extends React.Component {
 
     render() {
         if(!this.state.editing) {
-            return <span className={this.props.className} onClick={this.startEditing}>{this.state.text || this.props.placeholder}</span>
+            var component = this.props.component || 'span';
+            return React.createElement(component, {className:this.props.className, onClick=this.startEditing}, this.state.text || this.props.placeholder);
         } else {
             const Element = this.props.element || 'input';
             return <Element className={this.props.activeClassName} onKeyDown={this.keyDown} onBlur={this.finishEditing} ref="input" placeholder={this.props.placeholder} defaultValue={this.state.text} onChange={this.textChanged} onReturn={this.finishEditing} />
@@ -94,7 +95,8 @@ InlineEdit.propTypes = {
     minLength: React.PropTypes.number,
     maxLength: React.PropTypes.number,
     validate: React.PropTypes.func,
-    element: React.PropTypes.string
+    element: React.PropTypes.string,
+    component: React.PropTypes.string
 };
 
 export default InlineEdit;
